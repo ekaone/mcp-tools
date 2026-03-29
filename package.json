@@ -1,6 +1,6 @@
 {
   "name": "@ekaone/mcp-tools",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "MCP server exposing @ekaone utility tools for AI-assisted data masking",
   "keywords": [
     "mcp-tools",

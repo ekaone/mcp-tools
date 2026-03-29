@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * @file index.ts
  * @description Main entry point for @ekaone/mcp-tools package.

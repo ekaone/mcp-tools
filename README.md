@@ -1,5 +1,7 @@
 # @ekaone/mcp-tools
 
+> Under Active Development
+
 MCP (Model Context Protocol) server exposing @ekaone utility tools for AI-assisted data masking via stdio transport.
 
 [![npm version](https://img.shields.io/npm/v/@ekaone/mcp-tools.svg)](https://www.npmjs.com/package/@ekaone/mcp-tools)

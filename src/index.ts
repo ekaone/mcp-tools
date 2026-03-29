@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * @file index.ts
  * @description Main entry point for @ekaone/mcp-tools package.
@@ -20,7 +22,6 @@ const server = new McpServer({
 });
 
 // Register the masking tools
-// @ts-ignore
 server.tool(
   maskCardTool.name,
   maskCardTool.description,
@@ -28,7 +29,6 @@ server.tool(
   maskCardTool.handler,
 );
 
-// @ts-ignore
 server.tool(
   maskEmailTool.name,
   maskEmailTool.description,

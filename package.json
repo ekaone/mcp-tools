@@ -9,7 +9,6 @@
     "card",
     "obfuscate",
     "typescript",
-    "library",
     "privacy",
     "security"
   ],
@@ -19,19 +18,11 @@
     "url": "https://prasetia.me"
   },
   "license": "MIT",
-  "sideEffects": false,
   "engines": {
     "node": ">=18"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
+  "bin": {
+    "mcp-tools": "./dist/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -39,9 +30,6 @@
   "files": [
     "dist"
   ],
-  "bin": {
-    "mcp-tools": "./dist/index.js"
-  },
   "scripts": {
     "build": "pnpm clean && tsup",
     "dev": "tsx watch src/index.ts",

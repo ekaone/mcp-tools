@@ -1,32 +1,39 @@
 {
   "name": "@ekaone/mcp-tools",
   "version": "0.0.1",
-  "description": "MCP server exposing ekaone utility tools for AI-assisted data masking",
+  "description": "MCP server exposing @ekaone utility tools for AI-assisted data masking",
   "keywords": [
+    "mcp-tools",
+    "stdio",
     "email",
-    "mask",
+    "card",
     "obfuscate",
     "typescript",
-    "library",
     "privacy",
-    "security",
-    "email-masking",
-    "data-protection"
+    "security"
   ],
   "author": {
     "name": "Eka Prasetia",
     "email": "ekaone3033@gmail.com",
     "url": "https://prasetia.me"
   },
+  "license": "MIT",
   "engines": {
     "node": ">=18"
   },
-  "main": "./dist/server.js",
+  "bin": {
+    "mcp-tools": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "pnpm clean && tsup src/server.ts --format esm --dts",
-    "build:local": "pnpm clean && tsup src/server-local.ts --format esm --dts",
-    "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
+    "build": "pnpm clean && tsup",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
     "prepublishOnly": "pnpm run clean && pnpm run build && pnpm run test",
@@ -57,6 +64,5 @@
   "bugs": {
     "url": "https://github.com/ekaone/mcp-tools/issues"
   },
-  "homepage": "https://github.com/ekaone/mcp-tools#readme",
-  "license": "MIT"
+  "homepage": "https://github.com/ekaone/mcp-tools#readme"
 }

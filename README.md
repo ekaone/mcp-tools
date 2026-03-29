@@ -149,7 +149,7 @@ echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node dist/index.js
 pnpm run prepublishOnly
 
 # Publish to NPM
-npm publish
+pnpm publish
 ```
 
 ## Branch Structure
@@ -157,17 +157,18 @@ npm publish
 This repository has two main branches:
 
 - **`stdio`** (current branch) - For stdio MCP client usage (this README)
-- **`http/sse`** - For HTTP/SSE endpoint deployment
-
-## Dependencies
-
-This package depends on:
-
-- `@ekaone/mask-card` - Card number masking utility
-- `@ekaone/mask-email` - Email address masking utility
-- `@modelcontextprotocol/sdk` - MCP SDK for server implementation
-- `zod` - Schema validation
+- **`HTTP/SSE`** - For HTTP/SSE endpoint deployment
 
 ## License
 
-MIT © Eka Prasetia
+MIT © [Eka Prasetia](https://prasetia.me/)
+
+## Links
+
+- [npm Package](https://www.npmjs.com/package/@ekaone/mcp-tools)
+- [GitHub Repository](https://github.com/ekaone/mcp-tools)
+- [Issue Tracker](https://github.com/ekaone/mcp-tools/issues)
+
+---
+
+⭐ If this library helps you, please consider giving it a star on GitHub!

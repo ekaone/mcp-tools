@@ -23,12 +23,12 @@
   },
   "main": "./dist/server.js",
   "scripts": {
+    "build": "tsup src/server.ts --format esm --dts",
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf dist",
     "prepublishOnly": "pnpm run clean && pnpm run build && pnpm run test",
-    "deploy": "wrangler deploy",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
@@ -37,12 +37,10 @@
   "dependencies": {
     "@ekaone/mask-card": "latest",
     "@ekaone/mask-email": "latest",
-    "hono": "^4.12.9",
-    "@hono/node-server": "^1.19.11",
-    "@modelcontextprotocol/sdk": "^1.28.0"
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "wrangler": "^4.78.0",
     "@types/node": "^25.5.0",
     "@vitest/coverage-v8": "^4.1.0",
     "@vitest/ui": "^4.1.0",

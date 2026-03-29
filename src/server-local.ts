@@ -9,13 +9,13 @@
  *   "mcpServers": {
  *     "ekaone-mcp-tools": {
  *       "command": "node",
- *       "args": ["<project-path>/mcp-tools/dist/server.mjs"]
+ *       "args": ["<project-path>/mcp-tools/dist/server-local.mjs"]
  *     }
  *   }
  * }
  * 
- * 2. pnpm build
- * 3. node ./dist/server.mjs
+ * 2. pnpm build:local
+ * 3. node ./dist/server-local.mjs
  
  * 4. Add this command to your MCP client: "Can you mask the email test@example.com?"
  */

@@ -22,6 +22,9 @@
     "skipLibCheck": true,               // Keeps build times fast
     "esModuleInterop": true,            // Modern default for CJS/ESM compatibility
     "forceConsistentCasingInFileNames": true,
+    
+    /* 2026 Optimization */
+    "isolatedDeclarations": false       // Speeds up builds in monorepos/large projects
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "tests"]

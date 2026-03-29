@@ -1,6 +1,6 @@
 # @ekaone/mcp-tools
 
-A hosted MCP (Model Context Protocol) server that exposes data masking utilities as AI-callable tools over SSE/HTTP transport.
+MCP (Model Context Protocol) server exposing @ekaone utility tools for AI-assisted data masking via stdio transport.
 
 [![npm version](https://img.shields.io/npm/v/@ekaone/mcp-tools.svg)](https://www.npmjs.com/package/@ekaone/mcp-tools)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -15,12 +15,21 @@ A hosted MCP (Model Context Protocol) server that exposes data masking utilities
 
 ## Usage
 
-### 1. Connect via MCP Client
+### 1. With MCP Clients (Windsurf, Cursor, VS Code, Claude Desktop)
 
-Point your MCP client to the endpoint:
+Add this configuration to your MCP client:
 
-```
-https://your-deployed-server.workers.dev/mcp
+```json
+{
+  "mcpServers": {
+    "masker": {
+      "command": "npx",
+      "args": [
+        "@ekaone/mcp-tools@latest"
+      ]
+    }
+  }
+}
 ```
 
 ### 2. With Claude Desktop
@@ -30,8 +39,11 @@ Add to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "ekaone-mcp-tools": {
-      "url": "https://your-deployed-server.workers.dev/mcp"
+    "masker": {
+      "command": "npx",
+      "args": [
+        "@ekaone/mcp-tools@latest"
+      ]
     }
   }
 }
@@ -41,47 +53,17 @@ Then just talk to Claude naturally:
 
 ```
 "Hide all card numbers in this table"
-"Mask the email addresses before exporting"
-"Show only the last 4 digits of this card: 4532-1234-5678-9012"
+"Mask the email john.doe@example.com"
+"Show only last 4 digits of this card: 4532-1234-5678-9012"
 ```
 
-### 3. With Your Own Dashboard (Chat UI)
+### 3. Available Commands
 
-Wire the SSE endpoint into your AI client alongside Claude:
+Once connected, you can use these commands:
 
-```typescript
-import Anthropic from "@anthropic-ai/sdk";
-
-const client = new Anthropic();
-
-const response = await client.beta.messages.create({
-  model: "claude-sonnet-4-20250514",
-  max_tokens: 1024,
-  tools: [
-    {
-      type: "mcp",
-      server_url: "https://your-deployed-server.workers.dev/mcp",
-      server_name: "ekaone-mcp-tools",
-    },
-  ],
-  messages: [
-    {
-      role: "user",
-      content: "Mask this card number: 4532-1234-5678-9012",
-    },
-  ],
-  betas: ["mcp-client-2025-04-04"],
-});
-
-// Extract text response
-const text = response.content
-  .filter((block) => block.type === "text")
-  .map((block) => block.text)
-  .join("\n");
-
-console.log(text);
-// "Here is the masked card number: ************9012"
-```
+- **Mask email addresses**: "Can you mask this email: user@domain.com?"
+- **Mask card numbers**: "Please mask this credit card: 4532-1234-5678-9012"
+- **Custom masking**: "Mask this card showing only first 4 digits: 4532-1234-5678-9012"
 
 ## Tool Reference
 
@@ -132,53 +114,59 @@ Output: "jo******@e******.com"
 ## Local Development
 
 ```bash
-# Install
+# Install dependencies
 pnpm install
 
-# Dev server (hot reload)
+# Development with hot reload
 pnpm dev
 
 # Run tests
 pnpm test
 
-# Build
+# Build for production
 pnpm build
 
-# Start production
+# Test the built package locally
 pnpm start
 ```
 
-Server runs on `http://localhost:3000` by default.
+## Testing Locally
 
-Set a custom port via environment variable:
-
-```bash
-PORT=8080 pnpm dev
-```
-
-## Health Check
+Test the MCP server locally:
 
 ```bash
-curl https://your-deployed-server.workers.dev/
+# Build first
+pnpm build
+
+# Test stdio communication
+echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | node dist/index.js
 ```
 
-```json
-{
-  "name": "@ekaone/mcp-tools",
-  "version": "0.1.0",
-  "tools": ["mask_card", "mask_email"]
-}
-```
-
-## Deployment
-
-Any platform that supports Node.js works:
+## Publishing
 
 ```bash
-# Railway / Fly.io / Render
-# Set environment variable:
-PORT=3000
+# Build and test before publishing
+pnpm run prepublishOnly
+
+# Publish to NPM
+npm publish
 ```
+
+## Branch Structure
+
+This repository has two main branches:
+
+- **`stdio`** (current branch) - For stdio MCP client usage (this README)
+- **`http/sse`** - For HTTP/SSE endpoint deployment
+
+## Dependencies
+
+This package depends on:
+
+- `@ekaone/mask-card` - Card number masking utility
+- `@ekaone/mask-email` - Email address masking utility
+- `@modelcontextprotocol/sdk` - MCP SDK for server implementation
+- `zod` - Schema validation
 
 ## License
 

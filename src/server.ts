@@ -8,12 +8,11 @@
 
 import { Hono } from "hono";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { maskCardTool, maskEmailTool } from "./tools/index.js";
-import type { Tool } from "./types.js";
 
 const app = new Hono();
-const tools: Tool[] = [maskCardTool, maskEmailTool];
+const tools = [maskCardTool, maskEmailTool];
 
 // Health check
 app.get("/", (c) => {
@@ -24,8 +23,8 @@ app.get("/", (c) => {
   });
 });
 
-// SSE endpoint — MCP client connects here
-app.get("/sse", async (c) => {
+// Single endpoint — Streamable HTTP handles both directions
+app.post("/mcp", async (c) => {
   const server = new McpServer({
     name: "@ekaone/mcp-tools",
     version: "0.1.0",
@@ -41,21 +40,13 @@ app.get("/sse", async (c) => {
     );
   }
 
-  const transport = new SSEServerTransport("/messages", c.res);
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined, // stateless mode — fits Cloudflare Workers
+  });
+
   await server.connect(transport);
 
-  return new Response(transport.stream, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
-});
-
-// POST endpoint — MCP client sends tool calls here
-app.post("/messages", async (c) => {
-  return c.json({ ok: true });
+  return transport.handleRequest(c.req.raw, c.res.raw, await c.req.json());
 });
 
 export default app;

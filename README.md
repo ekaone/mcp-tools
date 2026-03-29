@@ -1,9 +1,8 @@
 # @ekaone/mcp-tools
 
-> Under Active Development
-
 A hosted MCP (Model Context Protocol) server that exposes data masking utilities as AI-callable tools over SSE/HTTP transport.
 
+[![npm version](https://img.shields.io/npm/v/@ekaone/mcp-tools.svg)](https://www.npmjs.com/package/@ekaone/mcp-tools)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 
@@ -18,10 +17,10 @@ A hosted MCP (Model Context Protocol) server that exposes data masking utilities
 
 ### 1. Connect via MCP Client
 
-Point your MCP client to the SSE endpoint:
+Point your MCP client to the endpoint:
 
 ```
-https://your-deployed-server.com/sse
+https://your-deployed-server.workers.dev/mcp
 ```
 
 ### 2. With Claude Desktop
@@ -32,7 +31,7 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "ekaone-mcp-tools": {
-      "url": "https://your-deployed-server.com/sse"
+      "url": "https://your-deployed-server.workers.dev/mcp"
     }
   }
 }
@@ -61,7 +60,7 @@ const response = await client.beta.messages.create({
   tools: [
     {
       type: "mcp",
-      server_url: "https://your-deployed-server.com/sse",
+      server_url: "https://your-deployed-server.workers.dev/mcp",
       server_name: "ekaone-mcp-tools",
     },
   ],
@@ -160,7 +159,7 @@ PORT=8080 pnpm dev
 ## Health Check
 
 ```bash
-curl http://localhost:3000/
+curl https://your-deployed-server.workers.dev/
 ```
 
 ```json

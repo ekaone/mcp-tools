@@ -1,6 +1,6 @@
 {
   "name": "@ekaone/mcp-tools",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "MCP server exposing @ekaone utility tools for AI-assisted data masking",
   "keywords": [
     "mcp-tools",
@@ -22,7 +22,7 @@
     "node": ">=18"
   },
   "bin": {
-    "mcp-tools": "./dist/index.mjs"
+    "mcp-tools": "./dist/index.js"
   },
   "publishConfig": {
     "access": "public"

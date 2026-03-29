@@ -2,6 +2,22 @@
  * @file server-local.ts
  * @description Stdio implementation for @ekaone/mcp-tools on local machine.
  * @author Eka Prasetia
+ *
+ * @usage
+ * 1. Add this configuration to your MCP client (e.g., Windsurf, Cursor, VS Code or Claude Desktop):
+ * {
+ *   "mcpServers": {
+ *     "ekaone-mcp-tools": {
+ *       "command": "node",
+ *       "args": ["<project-path>/mcp-tools/dist/server.mjs"]
+ *     }
+ *   }
+ * }
+ * 
+ * 2. pnpm build
+ * 3. node ./dist/server.mjs
+ 
+ * 4. Add this command to your MCP client: "Can you mask the email test@example.com?"
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
